@@ -25,11 +25,13 @@
     "url": "https://github.com/natevw/node-nrf/issues"
   },
   "dependencies": {
+  	"fifolock": "^1.0.0",
     "pi-spi": "^1.0.0",
     "queue-async": "~1.0.4"
   },
   "optionalDependencies": {
-  	"fifolock": "^1.0.0",
+  	"board-io": "^3.0.5",
+    "chip-io": "^2.1.1",
     "pi-pins": "^1.0.0"
   }
 }

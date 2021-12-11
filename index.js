@@ -4,8 +4,9 @@ var q = require('queue-async'),
     util = require('util'),
     events = require('events'),
     SPI = require('pi-spi'),
-    GPIO = require('pi-pins'),
     _m = require("./magicnums");
+    
+   	
 
 var mutex = fifo();   // HACK: avoid https://github.com/natevw/node-nrf/commit/8d80dabde1026e949f4eb4ea6d25624cbf3c70ec
 function forEachWithCB(fn, cb) { cb = mutex.TRANSACTION_WRAPPER(cb, function () {
@@ -25,12 +26,12 @@ function _extend(obj) {
 function _nop() {}          // used when a cb is not provided
 
 
-exports.connect = function (spi,ce,irq) {
+exports.connect = function (gpio,spi,ce,irq) {
     var _spi = spi, _ce = ce, _irq = irq;       // only for printDetails!
     var nrf = new events.EventEmitter(),
         spi = SPI.initialize(spi),
-        ce = GPIO.connect(ce),
-        irq = (arguments.length > 2) && GPIO.connect(irq);
+        ce = gpio.connect(ce),
+        irq = (arguments.length > 3) && gpio.connect(irq);
     
     nrf._T = _extend({}, _m.TIMING, {pd2stby:4500});        // may need local override of pd2stby
     
